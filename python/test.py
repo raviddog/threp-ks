@@ -6,23 +6,20 @@ f = open("th13_01.rpy", "rb")
 data = f.read()
 f.close()
 
-print(len(data))
-data = bytearray(data)
-print(len(data))
-
 thheader = ThModern.from_bytes(data)
-print(thheader.main.magic_ver)
+data = bytearray(thheader.main.comp_data)
 
-data = decode(data, len(data), 0x400, 0x5c, 0xe1)
-data = decode(data, len(data), 0x100, 0x7d, 0x3a)
-data = bytes(data)
-# data = decompress(data)
+decode(data, thheader.main.comp_size, 0x400, 0x5c, 0xe1)
+decode(data, thheader.main.comp_size, 0x100, 0x7d, 0x3a)
 
-f = open("th13_01.raw", "rb")
-data = f.read()
+decodedata = bytearray(thheader.main.size)
+print(thheader.main.comp_size)
+decompress(data, decodedata, thheader.main.comp_size-2)
+data = decodedata
+
+f = open("th13_01.raw", "wb")
+f.write(data)
 f.close()
-
-data = bytearray(data)
 
 replay = Th13.from_bytes(data)
 print(replay.header.name)
