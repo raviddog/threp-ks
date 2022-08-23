@@ -5,7 +5,6 @@ def th06_decrypt(data, key):
         key += 7
     return data
 
-
 class Ref:
     def __init__(self, value):
         self.value = value

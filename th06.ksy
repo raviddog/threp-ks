@@ -1,5 +1,5 @@
 meta:
-  id: th6
+  id: th06
   file-extension: rpy
   endian: le
 seq:

@@ -7,7 +7,7 @@ from kaitaistruct import KaitaiStruct, KaitaiStream, BytesIO
 if getattr(kaitaistruct, 'API_VERSION', (0, 9)) < (0, 9):
     raise Exception("Incompatible Kaitai Struct Python API: 0.9 or later is required, but you have %s" % (kaitaistruct.__version__))
 
-class Th6(KaitaiStruct):
+class Th06(KaitaiStruct):
     def __init__(self, _io, _parent=None, _root=None):
         self._io = _io
         self._parent = _parent
@@ -15,7 +15,7 @@ class Th6(KaitaiStruct):
         self._read()
 
     def _read(self):
-        self.header = Th6.Header(self._io, self, self._root)
+        self.header = Th06.Header(self._io, self, self._root)
 
     class Dummy(KaitaiStruct):
         """blank type."""
@@ -88,9 +88,9 @@ class Th6(KaitaiStruct):
         for i in range(7):
             _on = self.header.stage_offsets[i]
             if _on == 0:
-                self._m_stages.append(Th6.Dummy(self._io, self, self._root))
+                self._m_stages.append(Th06.Dummy(self._io, self, self._root))
             else:
-                self._m_stages.append(Th6.Stage(self._io, self, self._root))
+                self._m_stages.append(Th06.Stage(self._io, self, self._root))
 
         self._io.seek(_pos)
         return getattr(self, '_m_stages', None)

@@ -6,18 +6,18 @@
   } else if (typeof module === 'object' && module.exports) {
     module.exports = factory(require('kaitai-struct/KaitaiStream'));
   } else {
-    root.Th6 = factory(root.KaitaiStream);
+    root.Th06 = factory(root.KaitaiStream);
   }
 }(typeof self !== 'undefined' ? self : this, function (KaitaiStream) {
-var Th6 = (function() {
-  function Th6(_io, _parent, _root) {
+var Th06 = (function() {
+  function Th06(_io, _parent, _root) {
     this._io = _io;
     this._parent = _parent;
     this._root = _root || this;
 
     this._read();
   }
-  Th6.prototype._read = function() {
+  Th06.prototype._read = function() {
     this.header = new Header(this._io, this, this._root);
   }
 
@@ -25,7 +25,7 @@ var Th6 = (function() {
    * blank type
    */
 
-  var Dummy = Th6.Dummy = (function() {
+  var Dummy = Th06.Dummy = (function() {
     function Dummy(_io, _parent, _root) {
       this._io = _io;
       this._parent = _parent;
@@ -39,7 +39,7 @@ var Th6 = (function() {
     return Dummy;
   })();
 
-  var Header = Th6.Header = (function() {
+  var Header = Th06.Header = (function() {
     function Header(_io, _parent, _root) {
       this._io = _io;
       this._parent = _parent;
@@ -75,7 +75,7 @@ var Th6 = (function() {
     return Header;
   })();
 
-  var Stage = Th6.Stage = (function() {
+  var Stage = Th06.Stage = (function() {
     function Stage(_io, _parent, _root) {
       this._io = _io;
       this._parent = _parent;
@@ -95,7 +95,7 @@ var Th6 = (function() {
 
     return Stage;
   })();
-  Object.defineProperty(Th6.prototype, 'stages', {
+  Object.defineProperty(Th06.prototype, 'stages', {
     get: function() {
       if (this._m_stages !== undefined)
         return this._m_stages;
@@ -117,7 +117,7 @@ var Th6 = (function() {
     }
   });
 
-  return Th6;
+  return Th06;
 })();
-return Th6;
+return Th06;
 }));
