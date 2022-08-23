@@ -17,7 +17,7 @@ decode(data, thheader.main.comp_size, 0x100, 0x7d, 0x3a)
 
 decodedata = bytearray(thheader.main.size)
 print(thheader.main.comp_size)
-decompress(data, decodedata, thheader.main.comp_size-2)
+decompress(data, decodedata, thheader.main.comp_size)
 data = decodedata
 
 replay = Th13.from_bytes(data)
@@ -36,7 +36,7 @@ data = bytearray(thheader.main.comp_data)
 decode(data, thheader.main.comp_size, 0x400, 0xaa, 0xe1)
 decode(data, thheader.main.comp_size, 0x80, 0x3d, 0x7a)
 decodedata = bytearray(thheader.main.size)
-decompress(data, decodedata, thheader.main.comp_size-2)
+decompress(data, decodedata, thheader.main.comp_size)
 
 replay = Th10.from_bytes(decodedata)
 print(replay.header.name)

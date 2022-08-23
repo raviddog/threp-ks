@@ -24,6 +24,7 @@ def get_bit(buffer, ref_pointer, ref_filter, length):
     return result
     
 def decompress(buffer, decode, length):
+    length -= 2
     ref_pointer = Ref(0)
     ref_filter = Ref(0x80)
     dest = 0
