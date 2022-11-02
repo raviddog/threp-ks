@@ -1,10 +1,11 @@
 # This is a generated file! Please edit source .ksy file and use kaitai-struct-compiler to rebuild
 
+from pkg_resources import parse_version
 import kaitaistruct
 from kaitaistruct import KaitaiStruct, KaitaiStream, BytesIO
 
 
-if getattr(kaitaistruct, 'API_VERSION', (0, 9)) < (0, 9):
+if parse_version(kaitaistruct.__version__) < parse_version('0.9'):
     raise Exception("Incompatible Kaitai Struct Python API: 0.9 or later is required, but you have %s" % (kaitaistruct.__version__))
 
 class Th12(KaitaiStruct):
@@ -16,9 +17,9 @@ class Th12(KaitaiStruct):
 
     def _read(self):
         self.header = Th12.Header(self._io, self, self._root)
-        self.stage = []
+        self.stages = [None] * (self.header.stagecount)
         for i in range(self.header.stagecount):
-            self.stage.append(Th12.Stage(self._io, self, self._root))
+            self.stages[i] = Th12.Stage(self._io, self, self._root)
 
 
     class Header(KaitaiStruct):
@@ -58,7 +59,7 @@ class Th12(KaitaiStruct):
             self.power = self._io.read_u4le()
             self.piv = self._io.read_u4le()
             self.lives = self._io.read_u2le()
-            self.live_pieces = self._io.read_u2le()
+            self.life_pieces = self._io.read_u2le()
             self.bombs = self._io.read_u2le()
             self.bomb_pieces = self._io.read_u2le()
             self.ufo_1 = self._io.read_u4le()

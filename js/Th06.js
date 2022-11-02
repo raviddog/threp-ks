@@ -8,7 +8,7 @@
   } else {
     root.Th06 = factory(root.KaitaiStream);
   }
-}(typeof self !== 'undefined' ? self : this, function (KaitaiStream) {
+}(this, function (KaitaiStream) {
 var Th06 = (function() {
   function Th06(_io, _parent, _root) {
     this._io = _io;
@@ -66,9 +66,9 @@ var Th06 = (function() {
       this.unknown4 = this._io.readU4le();
       this.slowdown = this._io.readF4le();
       this.unknown5 = this._io.readU4le();
-      this.stageOffsets = [];
+      this.stageOffsets = new Array(7);
       for (var i = 0; i < 7; i++) {
-        this.stageOffsets.push(this._io.readU4le());
+        this.stageOffsets[i] = this._io.readU4le();
       }
     }
 
@@ -101,14 +101,14 @@ var Th06 = (function() {
         return this._m_stages;
       var _pos = this._io.pos;
       this._io.seek(this.header.stageOffsets[i]);
-      this._m_stages = [];
+      this._m_stages = new Array(7);
       for (var i = 0; i < 7; i++) {
         switch (this.header.stageOffsets[i]) {
         case 0:
-          this._m_stages.push(new Dummy(this._io, this, this._root));
+          this._m_stages[i] = new Dummy(this._io, this, this._root);
           break;
         default:
-          this._m_stages.push(new Stage(this._io, this, this._root));
+          this._m_stages[i] = new Stage(this._io, this, this._root);
           break;
         }
       }

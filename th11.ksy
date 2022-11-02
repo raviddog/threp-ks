@@ -5,7 +5,7 @@ meta:
 seq:
   - id: header
     type: header
-  - id: stage
+  - id: stages
     type: stage
     repeat: expr
     repeat-expr: header.stagecount
@@ -53,7 +53,7 @@ types:
         type: u4
       - id: lives
         type: u2
-      - id: live_pieces
+      - id: life_pieces
         type: u2
       - id: unknown_1
         size: 24

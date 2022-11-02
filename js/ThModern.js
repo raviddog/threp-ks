@@ -8,7 +8,7 @@
   } else {
     root.ThModern = factory(root.KaitaiStream);
   }
-}(typeof self !== 'undefined' ? self : this, function (KaitaiStream) {
+}(this, function (KaitaiStream) {
 var ThModern = (function() {
   function ThModern(_io, _parent, _root) {
     this._io = _io;

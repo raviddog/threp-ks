@@ -8,7 +8,7 @@
   } else {
     root.Th14 = factory(root.KaitaiStream);
   }
-}(typeof self !== 'undefined' ? self : this, function (KaitaiStream) {
+}(this, function (KaitaiStream) {
 var Th14 = (function() {
   function Th14(_io, _parent, _root) {
     this._io = _io;
@@ -19,9 +19,9 @@ var Th14 = (function() {
   }
   Th14.prototype._read = function() {
     this.header = new Header(this._io, this, this._root);
-    this.stage = [];
+    this.stages = new Array(this.header.stageCount);
     for (var i = 0; i < this.header.stageCount; i++) {
-      this.stage.push(new Stage(this._io, this, this._root));
+      this.stages[i] = new Stage(this._io, this, this._root);
     }
   }
 
@@ -82,7 +82,7 @@ var Th14 = (function() {
       this.powerMax = this._io.readU4le();
       this.powerLevelup = this._io.readU4le();
       this.lives = this._io.readU4le();
-      this.lifePiece = this._io.readU4le();
+      this.lifePieces = this._io.readU4le();
       this.unknown3 = this._io.readU4le();
       this.bombs = this._io.readU4le();
       this.bombPieces = this._io.readU4le();
@@ -90,15 +90,15 @@ var Th14 = (function() {
       this.unknown4 = this._io.readU4le();
       this.unknown5 = this._io.readU4le();
       this.unknown6 = this._io.readU4le();
-      this.lastItemCollectedPos = [];
+      this.lastItemCollectedPos = new Array(3);
       for (var i = 0; i < 3; i++) {
-        this.lastItemCollectedPos.push(this._io.readF4le());
+        this.lastItemCollectedPos[i] = this._io.readF4le();
       }
       this.pocCount = this._io.readU4le();
       this.focused = this._io.readU4le();
-      this.spellcardRealTimes = [];
+      this.spellcardRealTimes = new Array(21);
       for (var i = 0; i < 21; i++) {
-        this.spellcardRealTimes.push(this._io.readU4le());
+        this.spellcardRealTimes[i] = this._io.readU4le();
       }
       this.stageData = this._io.readBytes(this.endOff);
     }

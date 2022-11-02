@@ -1,10 +1,11 @@
 # This is a generated file! Please edit source .ksy file and use kaitai-struct-compiler to rebuild
 
+from pkg_resources import parse_version
 import kaitaistruct
 from kaitaistruct import KaitaiStruct, KaitaiStream, BytesIO
 
 
-if getattr(kaitaistruct, 'API_VERSION', (0, 9)) < (0, 9):
+if parse_version(kaitaistruct.__version__) < parse_version('0.9'):
     raise Exception("Incompatible Kaitai Struct Python API: 0.9 or later is required, but you have %s" % (kaitaistruct.__version__))
 
 class Th07(KaitaiStruct):
@@ -48,13 +49,13 @@ class Th07(KaitaiStruct):
             self.unknown_3 = self._io.read_u4le()
             self.comp_size = self._io.read_u4le()
             self.size = self._io.read_u4le()
-            self.stage_offsets = []
+            self.stage_offsets = [None] * (7)
             for i in range(7):
-                self.stage_offsets.append(self._io.read_u4le())
+                self.stage_offsets[i] = self._io.read_u4le()
 
-            self.unknown_4 = []
+            self.unknown_4 = [None] * (7)
             for i in range(7):
-                self.unknown_4.append(self._io.read_u4le())
+                self.unknown_4[i] = self._io.read_u4le()
 
 
 
@@ -73,9 +74,9 @@ class Th07(KaitaiStruct):
             self.name = (KaitaiStream.bytes_terminate(self._io.read_bytes(9), 0, False)).decode(u"ASCII")
             self.unknown_2 = self._io.read_bytes(5)
             self.score = self._io.read_u4le()
-            self.unknown_3 = []
+            self.unknown_3 = [None] * (23)
             for i in range(23):
-                self.unknown_3.append(self._io.read_u4le())
+                self.unknown_3[i] = self._io.read_u4le()
 
             self.slowdown = self._io.read_f4le()
 
@@ -106,24 +107,24 @@ class Th07(KaitaiStruct):
     @property
     def stages(self):
         if hasattr(self, '_m_stages'):
-            return self._m_stages
+            return self._m_stages if hasattr(self, '_m_stages') else None
 
         _pos = self._io.pos()
         self._io.seek(self.header.stage_offsets[i])
-        self._raw__m_stages = []
-        self._m_stages = []
+        self._raw__m_stages = [None] * (7)
+        self._m_stages = [None] * (7)
         for i in range(7):
             _on = self.header.stage_offsets[i]
             if _on == 0:
-                self._raw__m_stages.append(self._io.read_bytes(40))
+                self._raw__m_stages[i] = self._io.read_bytes(40)
                 _io__raw__m_stages = KaitaiStream(BytesIO(self._raw__m_stages[i]))
-                self._m_stages.append(Th07.Dummy(_io__raw__m_stages, self, self._root))
+                self._m_stages[i] = Th07.Dummy(_io__raw__m_stages, self, self._root)
             else:
-                self._raw__m_stages.append(self._io.read_bytes(40))
+                self._raw__m_stages[i] = self._io.read_bytes(40)
                 _io__raw__m_stages = KaitaiStream(BytesIO(self._raw__m_stages[i]))
-                self._m_stages.append(Th07.Stage(_io__raw__m_stages, self, self._root))
+                self._m_stages[i] = Th07.Stage(_io__raw__m_stages, self, self._root)
 
         self._io.seek(_pos)
-        return getattr(self, '_m_stages', None)
+        return self._m_stages if hasattr(self, '_m_stages') else None
 
 

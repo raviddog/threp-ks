@@ -8,7 +8,7 @@
   } else {
     root.Th12 = factory(root.KaitaiStream);
   }
-}(typeof self !== 'undefined' ? self : this, function (KaitaiStream) {
+}(this, function (KaitaiStream) {
 var Th12 = (function() {
   function Th12(_io, _parent, _root) {
     this._io = _io;
@@ -19,9 +19,9 @@ var Th12 = (function() {
   }
   Th12.prototype._read = function() {
     this.header = new Header(this._io, this, this._root);
-    this.stage = [];
+    this.stages = new Array(this.header.stagecount);
     for (var i = 0; i < this.header.stagecount; i++) {
-      this.stage.push(new Stage(this._io, this, this._root));
+      this.stages[i] = new Stage(this._io, this, this._root);
     }
   }
 
@@ -67,7 +67,7 @@ var Th12 = (function() {
       this.power = this._io.readU4le();
       this.piv = this._io.readU4le();
       this.lives = this._io.readU2le();
-      this.livePieces = this._io.readU2le();
+      this.lifePieces = this._io.readU2le();
       this.bombs = this._io.readU2le();
       this.bombPieces = this._io.readU2le();
       this.ufo1 = this._io.readU4le();

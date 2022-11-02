@@ -1,44 +1,23 @@
-from th_modern import *
-from th13 import *
-import th07
-from th_common import *
-from th06 import *
-from th10 import *
+import th_modern, th_common
+import th06, th07, th10, th11, th12, th13, th14
 
-f = open("th13_01.rpy", "rb")
+f = open("th11_01.rpy", "rb")
 data = f.read()
 f.close()
 
-thheader = ThModern.from_bytes(data)
+thheader = th_modern.ThModern.from_bytes(data)
 data = bytearray(thheader.main.comp_data)
 
-decode(data, thheader.main.comp_size, 0x400, 0x5c, 0xe1)
-decode(data, thheader.main.comp_size, 0x100, 0x7d, 0x3a)
+th_common.decode(data, thheader.main.comp_size, 0x800, 0xaa, 0xe1)
+th_common.decode(data, thheader.main.comp_size, 0x40, 0x3d, 0x7a)
 
 decodedata = bytearray(thheader.main.size)
 print(thheader.main.comp_size)
-decompress(data, decodedata, thheader.main.comp_size)
+th_common.decompress(data, decodedata, thheader.main.comp_size)
 data = decodedata
 
-replay = Th13.from_bytes(data)
-print(replay.header.name)
-print(replay.header.stage_count)
-print(replay.stage[2].stage_num)
-
-
-f = open("th10_01.rpy", "rb")
-data = f.read()
-f.close()
-
-thheader = ThModern.from_bytes(data)
-data = bytearray(thheader.main.comp_data)
-
-decode(data, thheader.main.comp_size, 0x400, 0xaa, 0xe1)
-decode(data, thheader.main.comp_size, 0x80, 0x3d, 0x7a)
-decodedata = bytearray(thheader.main.size)
-decompress(data, decodedata, thheader.main.comp_size)
-
-replay = Th10.from_bytes(decodedata)
+replay = th11.Th11.from_bytes(data)
 print(replay.header.name)
 print(replay.header.stagecount)
-print(replay.stages[2].score)
+print(replay.stages[2].stage)
+

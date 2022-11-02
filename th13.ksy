@@ -5,7 +5,7 @@ meta:
 seq:
   - id: header
     type: header
-  - id: stage
+  - id: stages
     type: stage
     repeat: expr
     repeat-expr: header.stage_count
