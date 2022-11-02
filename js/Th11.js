@@ -8,7 +8,7 @@
   } else {
     root.Th11 = factory(root.KaitaiStream);
   }
-}(this, function (KaitaiStream) {
+}(typeof self !== 'undefined' ? self : this, function (KaitaiStream) {
 var Th11 = (function() {
   function Th11(_io, _parent, _root) {
     this._io = _io;
@@ -19,9 +19,9 @@ var Th11 = (function() {
   }
   Th11.prototype._read = function() {
     this.header = new Header(this._io, this, this._root);
-    this.stages = new Array(this.header.stagecount);
+    this.stages = [];
     for (var i = 0; i < this.header.stagecount; i++) {
-      this.stages[i] = new Stage(this._io, this, this._root);
+      this.stages.push(new Stage(this._io, this, this._root));
     }
   }
 

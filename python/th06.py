@@ -1,11 +1,10 @@
 # This is a generated file! Please edit source .ksy file and use kaitai-struct-compiler to rebuild
 
-from pkg_resources import parse_version
 import kaitaistruct
 from kaitaistruct import KaitaiStruct, KaitaiStream, BytesIO
 
 
-if parse_version(kaitaistruct.__version__) < parse_version('0.9'):
+if getattr(kaitaistruct, 'API_VERSION', (0, 9)) < (0, 9):
     raise Exception("Incompatible Kaitai Struct Python API: 0.9 or later is required, but you have %s" % (kaitaistruct.__version__))
 
 class Th06(KaitaiStruct):
@@ -55,9 +54,9 @@ class Th06(KaitaiStruct):
             self.unknown_4 = self._io.read_u4le()
             self.slowdown = self._io.read_f4le()
             self.unknown_5 = self._io.read_u4le()
-            self.stage_offsets = [None] * (7)
+            self.stage_offsets = []
             for i in range(7):
-                self.stage_offsets[i] = self._io.read_u4le()
+                self.stage_offsets.append(self._io.read_u4le())
 
 
 
@@ -81,19 +80,19 @@ class Th06(KaitaiStruct):
     @property
     def stages(self):
         if hasattr(self, '_m_stages'):
-            return self._m_stages if hasattr(self, '_m_stages') else None
+            return self._m_stages
 
         _pos = self._io.pos()
         self._io.seek(self.header.stage_offsets[i])
-        self._m_stages = [None] * (7)
+        self._m_stages = []
         for i in range(7):
             _on = self.header.stage_offsets[i]
             if _on == 0:
-                self._m_stages[i] = Th06.Dummy(self._io, self, self._root)
+                self._m_stages.append(Th06.Dummy(self._io, self, self._root))
             else:
-                self._m_stages[i] = Th06.Stage(self._io, self, self._root)
+                self._m_stages.append(Th06.Stage(self._io, self, self._root))
 
         self._io.seek(_pos)
-        return self._m_stages if hasattr(self, '_m_stages') else None
+        return getattr(self, '_m_stages', None)
 
 

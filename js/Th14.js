@@ -8,7 +8,7 @@
   } else {
     root.Th14 = factory(root.KaitaiStream);
   }
-}(this, function (KaitaiStream) {
+}(typeof self !== 'undefined' ? self : this, function (KaitaiStream) {
 var Th14 = (function() {
   function Th14(_io, _parent, _root) {
     this._io = _io;
@@ -19,9 +19,9 @@ var Th14 = (function() {
   }
   Th14.prototype._read = function() {
     this.header = new Header(this._io, this, this._root);
-    this.stages = new Array(this.header.stageCount);
+    this.stages = [];
     for (var i = 0; i < this.header.stageCount; i++) {
-      this.stages[i] = new Stage(this._io, this, this._root);
+      this.stages.push(new Stage(this._io, this, this._root));
     }
   }
 
@@ -90,15 +90,15 @@ var Th14 = (function() {
       this.unknown4 = this._io.readU4le();
       this.unknown5 = this._io.readU4le();
       this.unknown6 = this._io.readU4le();
-      this.lastItemCollectedPos = new Array(3);
+      this.lastItemCollectedPos = [];
       for (var i = 0; i < 3; i++) {
-        this.lastItemCollectedPos[i] = this._io.readF4le();
+        this.lastItemCollectedPos.push(this._io.readF4le());
       }
       this.pocCount = this._io.readU4le();
       this.focused = this._io.readU4le();
-      this.spellcardRealTimes = new Array(21);
+      this.spellcardRealTimes = [];
       for (var i = 0; i < 21; i++) {
-        this.spellcardRealTimes[i] = this._io.readU4le();
+        this.spellcardRealTimes.push(this._io.readU4le());
       }
       this.stageData = this._io.readBytes(this.endOff);
     }
