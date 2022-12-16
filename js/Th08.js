@@ -49,7 +49,7 @@ var Th08 = (function() {
       this._read();
     }
     FileHeader.prototype._read = function() {
-      this.padding = this._io.readBytes(24);
+      this.padding = this._io.readBytes(16);
       this.unknown3 = this._io.readU4le();
       this.unknown5 = this._io.readU4le();
       this.compSize = this._io.readU4le();
@@ -80,12 +80,9 @@ var Th08 = (function() {
       this.shot = this._io.readU1();
       this.difficulty = this._io.readU1();
       this.date = KaitaiStream.bytesToStr(KaitaiStream.bytesTerminate(this._io.readBytes(6), 0, false), "ASCII");
-      this.name = KaitaiStream.bytesToStr(KaitaiStream.bytesTerminate(this._io.readBytes(9), 0, false), "ASCII");
-      this.unknown2 = this._io.readBytes(5);
-      this.unknown3 = [];
-      for (var i = 0; i < 12; i++) {
-        this.unknown3.push(this._io.readU4le());
-      }
+      this.name = KaitaiStream.bytesToStr(KaitaiStream.bytesTerminate(this._io.readBytes(10), 0, false), "ASCII");
+      this.spellCardId = this._io.readU2le();
+      this.spellCardName = KaitaiStream.bytesToStr(KaitaiStream.bytesTerminate(this._io.readBytes(50), 0, false), "SJIS");
       this.score = this._io.readU4le();
       this.unknown4 = [];
       for (var i = 0; i < 25; i++) {

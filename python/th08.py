@@ -38,7 +38,7 @@ class Th08(KaitaiStruct):
             self._read()
 
         def _read(self):
-            self.padding = self._io.read_bytes(24)
+            self.padding = self._io.read_bytes(16)
             self.unknown_3 = self._io.read_u4le()
             self.unknown_5 = self._io.read_u4le()
             self.comp_size = self._io.read_u4le()
@@ -65,12 +65,9 @@ class Th08(KaitaiStruct):
             self.shot = self._io.read_u1()
             self.difficulty = self._io.read_u1()
             self.date = (KaitaiStream.bytes_terminate(self._io.read_bytes(6), 0, False)).decode(u"ASCII")
-            self.name = (KaitaiStream.bytes_terminate(self._io.read_bytes(9), 0, False)).decode(u"ASCII")
-            self.unknown_2 = self._io.read_bytes(5)
-            self.unknown_3 = []
-            for i in range(12):
-                self.unknown_3.append(self._io.read_u4le())
-
+            self.name = (KaitaiStream.bytes_terminate(self._io.read_bytes(10), 0, False)).decode(u"ASCII")
+            self.spell_card_id = self._io.read_u2le()
+            self.spell_card_name = (KaitaiStream.bytes_terminate(self._io.read_bytes(50), 0, False)).decode(u"SJIS")
             self.score = self._io.read_u4le()
             self.unknown_4 = []
             for i in range(25):
