@@ -16,7 +16,7 @@ instances:
         0: dummy
         _: stage
     repeat: expr
-    repeat-expr: 40
+    repeat-expr: 20
 types:
   dummy:
     doc: blank type
@@ -41,7 +41,11 @@ types:
       - id: stage_offsets
         type: u4
         repeat: expr
-        repeat-expr: 40
+        repeat-expr: 20
+      - id: unknown_offsets
+        type: u4
+        repeat: expr
+        repeat-expr: 20
   header:
     seq:
       - id: unknown_1

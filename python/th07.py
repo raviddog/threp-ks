@@ -109,7 +109,6 @@ class Th07(KaitaiStruct):
             return self._m_stages
 
         _pos = self._io.pos()
-        self._io.seek(self.header.stage_offsets[i])
         self._raw__m_stages = []
         self._m_stages = []
         for i in range(7):
@@ -119,6 +118,7 @@ class Th07(KaitaiStruct):
                 _io__raw__m_stages = KaitaiStream(BytesIO(self._raw__m_stages[i]))
                 self._m_stages.append(Th07.Dummy(_io__raw__m_stages, self, self._root))
             else:
+                self._io.seek(self.header.stage_offsets[i])
                 self._raw__m_stages.append(self._io.read_bytes(40))
                 _io__raw__m_stages = KaitaiStream(BytesIO(self._raw__m_stages[i]))
                 self._m_stages.append(Th07.Stage(_io__raw__m_stages, self, self._root))

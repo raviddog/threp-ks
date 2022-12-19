@@ -61,8 +61,12 @@ var Th09 = (function() {
       this.unknown3 = this._io.readBytes(7);
       this.size = this._io.readU4le();
       this.stageOffsets = [];
-      for (var i = 0; i < 40; i++) {
+      for (var i = 0; i < 20; i++) {
         this.stageOffsets.push(this._io.readU4le());
+      }
+      this.unknownOffsets = [];
+      for (var i = 0; i < 20; i++) {
+        this.unknownOffsets.push(this._io.readU4le());
       }
     }
 
@@ -114,7 +118,7 @@ var Th09 = (function() {
       var _pos = this._io.pos;
       this._io.seek(this.fileHeader.stageOffsets[i]);
       this._m_stages = [];
-      for (var i = 0; i < 40; i++) {
+      for (var i = 0; i < 20; i++) {
         switch (this.fileHeader.stageOffsets[i]) {
         case 0:
           this._m_stages.push(new Dummy(this._io, this, this._root));
